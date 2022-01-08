@@ -11,43 +11,40 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-        ListNode* head1 = l1;
-        ListNode* head2 = l2;
+        ListNode* h1 = l1;
+        ListNode* h2 = l2;
         
-        int first = head1->val;
-        int second = head2->val;
+        ListNode* h3 = new ListNode(0);
+        ListNode* result = h3;
         
-        int sum = (first + second)%10;
-        int carry = (first + second)/10;
+        int carry = 0, sum = 0;
         
-        ListNode* head3 = new ListNode(sum);
-        ListNode* finalResultHead = (head3);
-        
-        head1 = head1->next;
-        head2 = head2->next;
-        
-        while(!(head1 == nullptr && head2 == nullptr)){
+        while(!(h1 == nullptr && h2 == nullptr)){
+
+            if(h1 != nullptr && h2 != nullptr){
+                sum = (h1->val + h2->val + carry)%10;
+                carry = (h1->val + h2->val + carry)/10;
+                h1 = h1->next;// Iterating through the linked list
+                h2 = h2->next;
+            }
+            else if(h1 != nullptr){
+                sum = (h1->val + carry)%10;
+                carry = (h1->val + carry)/10;
+                h1 = h1->next;
+            }
+            else{
+                sum = (h2->val + carry)%10;
+                carry = (h2->val + carry)/10;
+                h2 = h2->next;
+            }
             
-            first = (head1 == nullptr)? 0: head1->val;
-            second = (head2 == nullptr)? 0: head2->val;
-            
-            sum = ((first + second) + carry)%10;
-    
-            ListNode* next = new ListNode(sum);
-            carry = (((first + second) + carry)/10);
-            
-            head1 = (head1 == nullptr)? nullptr:head1->next;
-            head2 = (head2 == nullptr)? nullptr:head2->next;
-            head3->next = (next);
-            head3 = head3->next;
+            h3->next = new ListNode(sum); // Create the node after sum is found. No creation of memory for the next node without checking if it exists.
+            h3 = h3->next;
         }
         
-        if(carry != 0){
-            ListNode* next = new ListNode(carry);
-            head3->next = (next);
-        }
+        if(carry != 0)
+            h3->next = new ListNode(carry);
         
-        return finalResultHead;
-        
+        return result->next;
     }
 };
