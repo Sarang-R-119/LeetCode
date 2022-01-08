@@ -24,7 +24,7 @@ public:
             if(h1 != nullptr && h2 != nullptr){
                 sum = (h1->val + h2->val + carry)%10;
                 carry = (h1->val + h2->val + carry)/10;
-                h1 = h1->next;
+                h1 = h1->next;// Iterating through the linked list
                 h2 = h2->next;
             }
             else if(h1 != nullptr){
@@ -38,7 +38,7 @@ public:
                 h2 = h2->next;
             }
             
-            h3->next = new ListNode(sum);
+            h3->next = new ListNode(sum); // Create the node after sum is found. No creation of memory for the next node without checking if it exists.
             h3 = h3->next;
         }
         
