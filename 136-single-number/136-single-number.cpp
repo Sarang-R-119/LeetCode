@@ -1,6 +1,19 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
+        
+        //Hashmap
+        int sum = 0;
+        
+        for(int i = 0; i < nums.size(); i++){
+            sum ^= nums[i];
+        }
+    
+        return sum;
+    }
+    
+    /*
+    int singleNumber(vector<int>& nums) {
         //Hashmap
         map<int, int> dict;
         
@@ -14,5 +27,5 @@ public:
                 return nums[i];
         }
         return 0;
-    }
+    }*/
 };
